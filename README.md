@@ -1,6 +1,25 @@
 # Cinema Webapp
-+ В проекте используются Spring boot, Thymeleaf, Bootstrap, JDBC.
+
+## О проекте
 + Главная страница содержит форму выбора фильма. Страница содержит изображения фильмов в виде таблицы.
 + Пользователь кликает на фильм и переходит на вид зала для выбора места.
-+ 
+
+## Использованные технологии
++ Java 17;
++ Maven 4.0;
++ Spring boot;
++ Thymeleaf;
++ Bootstrap;
++ PostgreSQL;
++ JDBC;
++ Liquibase
++ H2 1.4;
++ Log4j;
++ JUnit 5;
++ Mockito 4.
+
+## Настройка окружения
++ Установить PostgreSQL: логин - postgres, пароль - password;
++ Создать БД cinema;
++ Рекомендуемый браузер Chrome.
 
