@@ -3,19 +3,40 @@ package ru.job4j.cinema.model;
 import java.util.Objects;
 
 /**
+ * Модель данных купленного билета.
  * Created by Oywayten on 06.11.2022.
- * Класс модели купленного билета.
  */
 public class Ticket {
+    /**
+     * Идентификатор купленного билета
+     */
     private int id;
+    /**
+     * Идентификатор сессии
+     */
     private int sessionId;
+    /**
+     * Номер ряда в зале
+     */
     private int posRow;
+    /**
+     * Номер места в ряду
+     */
     private int cell;
+    /**
+     * Идентификатор пользователя
+     */
     private int userId;
 
+    /**
+     * Конструктор без параметров.
+     */
     public Ticket() {
     }
 
+    /**
+     * Конструктор принимает все поля в качестве входных параметров и устанавливает их в поля.
+     */
     public Ticket(int id, int sessionId, int posRow, int cell, int userId) {
         this.id = id;
         this.sessionId = sessionId;
@@ -73,11 +94,11 @@ public class Ticket {
             return false;
         }
         Ticket ticket = (Ticket) o;
-        return id == ticket.id;
+        return sessionId == ticket.sessionId && posRow == ticket.posRow && cell == ticket.cell;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(sessionId, posRow, cell);
     }
 }

@@ -3,22 +3,46 @@ package ru.job4j.cinema.model;
 import java.util.Objects;
 
 /**
+ * Модель данных пользователя.
  * Created by Oywayten on 06.11.2022.
  */
 public class User {
+    /**
+     * Идентификатор пользователя
+     */
     private int id;
+    /**
+     * Имя пользователя
+     */
     private String name;
-    private String email;
+    /**
+     * Пароль пользователя
+     */
     private String password;
+    /**
+     * Емейл пользователя
+     */
+    private String email;
+    /**
+     * Телефон пользователя
+     */
+    private String phone;
 
+    /**
+     * Конструктор без параметров.
+     */
     public User() {
     }
 
-    public User(int id, String name, String email, String password) {
+    /**
+     * Конструктор принимает все поля в качестве входных параметров и устанавливает их в поля.
+     */
+    public User(int id, String name, String password, String email, String phone) {
         this.id = id;
         this.name = name;
-        this.email = email;
         this.password = password;
+        this.email = email;
+        this.phone = phone;
     }
 
     public int getId() {
@@ -37,6 +61,14 @@ public class User {
         this.name = name;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -45,12 +77,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override

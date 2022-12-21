@@ -3,19 +3,37 @@ package ru.job4j.cinema.model;
 import java.util.Objects;
 
 /**
+ * Модель данных сеанса.
  * Created by Oywayten on 06.11.2022.
- * Класс модели сеанса.
  */
 public class Session {
+    /**
+     * Идентификатор сеанса
+     */
     private int id;
+    /**
+     * Название фильма
+     */
     private String name;
 
+    /**
+     * Зал сеанса
+     */
+    private Hall hall;
+
+    /**
+     * Конструктор без параметров.
+     */
     public Session() {
     }
 
-    public Session(int id, String name) {
+    /**
+     * Конструктор принимает все поля в качестве входных параметров и устанавливает их в поля.
+     */
+    public Session(int id, String name, Hall hall) {
         this.id = id;
         this.name = name;
+        this.hall = hall;
     }
 
     public int getId() {
@@ -32,6 +50,14 @@ public class Session {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Hall getHall() {
+        return hall;
+    }
+
+    public void setHall(Hall hall) {
+        this.hall = hall;
     }
 
     @Override
