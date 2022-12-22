@@ -26,8 +26,13 @@ public class JdbcUserRepository implements UserRepository {
     /**
      * Строка запроса к БД на получение пользователя по емейлу или паролю
      */
-    private static final String FIND_USER_BY_EMAIL_OR_PHONE =
-            "select * from users where email = ? or phone = ?";
+    private static final String FIND_USER_BY_EMAIL_AND_PASSWORD =
+            "select * from users where email = ? and password = ?";
+    /**
+     * Строка запроса к БД на получение пользователя по емейлу или паролю
+     */
+    private static final String FIND_USER_BY_PHONE_AND_PASSWORD =
+            "select * from users where phone = ? and password = ?";
     /**
      * Логгер для логирования
      */
@@ -95,19 +100,42 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     /**
-     * Находит пользователя по телефону или почте. Смотря, что найдет первым..
+     * Находит пользователя по почте.
      *
      * @param email почта искомого пользователя.
+     * @return Optional.of(user) при успешном поиске, иначе {@link Optional#empty()}.
+     */
+    @Override
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
+        Optional<User> optionalUser = Optional.empty();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(FIND_USER_BY_EMAIL_AND_PASSWORD)) {
+            ps.setString(1, email);
+            ps.setString(2, password);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    optionalUser = Optional.of(createUser(it));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return optionalUser;
+    }
+
+    /**
+     * Находит пользователя по телефону.
+     *
      * @param phone телефон искомого пользователя.
      * @return Optional.of(user) при успешном поиске, иначе {@link Optional#empty()}.
      */
     @Override
-    public Optional<User> findUserByEmailOrPhone(String email, String phone) {
+    public Optional<User> findUserByPhoneAndPassport(String phone, String password) {
         Optional<User> optionalUser = Optional.empty();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(FIND_USER_BY_EMAIL_OR_PHONE)) {
-            ps.setString(1, email);
-            ps.setString(2, phone);
+             PreparedStatement ps = cn.prepareStatement(FIND_USER_BY_PHONE_AND_PASSWORD)) {
+            ps.setString(1, phone);
+            ps.setString(2, password);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
                     optionalUser = Optional.of(createUser(it));

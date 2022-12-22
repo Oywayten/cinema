@@ -1,6 +1,5 @@
 package ru.job4j.cinema.service;
 
-import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.repository.SessionRepository;
@@ -12,7 +11,6 @@ import java.util.List;
  * Created by Oywayten on 19.12.2022.
  */
 @Service
-@ThreadSafe
 public class SessionService {
     /**
      * Подключенный репозиторий сеансов.
@@ -21,6 +19,7 @@ public class SessionService {
 
     /**
      * Конструктор принимает репозиторий сеансов и инициализирует им переменную {@link #repository}.
+     *
      * @param repository репозиторий сеансов для работы сервиса.
      */
     public SessionService(SessionRepository repository) {
@@ -29,6 +28,7 @@ public class SessionService {
 
     /**
      * Получает все сеансы из подключенного репозитория.
+     *
      * @return список сеансов {@link List<Session>}.
      */
     public List<Session> findAll() {

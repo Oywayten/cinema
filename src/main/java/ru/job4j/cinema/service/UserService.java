@@ -1,6 +1,5 @@
 package ru.job4j.cinema.service;
 
-import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.repository.UserRepository;
@@ -12,7 +11,6 @@ import java.util.Optional;
  * Created by Oywayten on 19.12.2022.
  */
 @Service
-@ThreadSafe
 public class UserService {
     /**
      * Подключенный репозиторий пользователей.
@@ -39,15 +37,28 @@ public class UserService {
     }
 
     /**
-     * Принимает почту и телефон и ищет в хранилище пользователя, у которого совпадает почта или телефон.
-     * Возвращает {@link Optional} с первым же найденным в хранилище пользователем у которого совпала почта или телефон,
+     * Принимает почту и ищет в хранилище пользователя, у которого совпадает почта.
+     * Возвращает {@link Optional} с первым же найденным в хранилище пользователем, у которого совпала почта,
      * или с null.
      *
-     * @param email почта для поиска {@link String}.
-     * @param phone телефон для поиска {@link String}.
+     * @param email {@link String} почта для поиска в хранилище.
+     * @param password {@link String} пароль для поиска в хранилище.
      * @return {@link Optional} содержащий {@link User} или null.
      */
-    public Optional<User> findUserByEmailOrPhone(String email, String phone) {
-        return repository.findUserByEmailOrPhone(email, phone);
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
+        return repository.findUserByEmailAndPassword(email, password);
+    }
+
+    /**
+     * Принимает телефон и ищет в хранилище пользователя, у которого совпадает телефон.
+     * Возвращает {@link Optional} с первым же найденным в хранилище пользователем, у которого совпал телефон,
+     * или с null.
+     *
+     * @param phone {@link String} телефон для поиска в хранилище.
+     * @param password {@link String} пароль для поиска {@link String}.
+     * @return {@link Optional} содержащий {@link User} или null.
+     */
+    public Optional<User> findUserByPhoneAndPassport(String phone, String password) {
+        return repository.findUserByPhoneAndPassport(phone, password);
     }
 }

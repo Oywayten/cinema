@@ -1,6 +1,5 @@
 package ru.job4j.cinema.service;
 
-import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.repository.TicketRepository;
@@ -12,7 +11,6 @@ import java.util.Optional;
  * Created by Oywayten on 19.12.2022.
  */
 @Service
-@ThreadSafe
 public class TicketService {
     /**
      * Репозиторий купленных билетов.

@@ -1,5 +1,6 @@
 package ru.job4j.cinema.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import java.util.Optional;
  * Контроллер купленных билетов.
  * Created by Oywayten on 21.12.2022.
  */
+@Controller
 public class TicketController {
     /**
      * Сервис купленных билетов {@link TicketService}.

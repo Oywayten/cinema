@@ -30,11 +30,20 @@ public interface UserRepository {
     Optional<User> add(User user);
 
     /**
-     * Метод для поиска пользователя по почте или телефону.
+     * Метод для поиска пользователя по почте и паролю.
      *
-     * @param email почта для поиска String.
-     * @param phone телефон для поиска String.
-     * @return Optional содержащий User или null.
+     * @param email почта для поиска в хранилище.
+     * @param password пароль для поиска в хранилище.
+     * @return Optional содержащий пользователя {@link User} с указанными почтой и паролем, или null.
      */
-    Optional<User> findUserByEmailOrPhone(String email, String phone);
+    Optional<User> findUserByEmailAndPassword(String email, String password);
+
+    /**
+     * Метод для поиска пользователя по телефону.
+     *
+     * @param phone телефон для поиска в хранилище.
+     * @param password пароль для поиска в хранилище.
+     * @return Optional содержащий пользователя {@link User} с указанными почтой и паролем, или null.
+     */
+    Optional<User> findUserByPhoneAndPassport(String phone, String password);
 }
