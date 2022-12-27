@@ -55,7 +55,9 @@ CREATE TABLE tickets (
     user_id INT NOT NULL REFERENCES users(id)
 );
 
-CREATE UNIQUE INDEX uniq_ticket ON tickets (session_id, pos_row, cell);
+alter table tickets
+add constraint unique_ticket_constrain
+unique (session_id, cell, pos_row);
 
 COMMENT ON table tickets IS 'Таблица билетов';
 COMMENT ON column tickets.id IS 'Идентификатор билета';
