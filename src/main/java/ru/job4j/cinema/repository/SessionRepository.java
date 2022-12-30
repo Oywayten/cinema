@@ -25,4 +25,11 @@ public interface SessionRepository {
      * @throws Exception ошибка при создании.
      */
     Session createSession(ResultSet it) throws Exception;
+
+    /**
+     * Возвращает сеанс по его идентификатору.
+     * @param id идентификатор сеанса int.
+     * @return Session из базы по нужному id.
+     */
+    Session findById(int id);
 }

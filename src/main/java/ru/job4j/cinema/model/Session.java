@@ -15,7 +15,10 @@ public class Session {
      * Название фильма
      */
     private String name;
-
+    /**
+     * Постер фильма
+     */
+    private byte[] photo;
     /**
      * Зал сеанса
      */
@@ -30,10 +33,11 @@ public class Session {
     /**
      * Конструктор принимает все поля в качестве входных параметров и устанавливает их в поля.
      */
-    public Session(int id, String name, Hall hall) {
+    public Session(int id, String name, byte[] photo, Hall hall) {
         this.id = id;
         this.name = name;
         this.hall = hall;
+        this.photo = photo;
     }
 
     public int getId() {
@@ -50,6 +54,14 @@ public class Session {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     public Hall getHall() {

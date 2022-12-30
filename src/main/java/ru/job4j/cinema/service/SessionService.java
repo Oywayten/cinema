@@ -34,4 +34,13 @@ public class SessionService {
     public List<Session> findAll() {
         return repository.findAll();
     }
+
+    /**
+     * Возвращает сеанс по его идентификатору.
+     * @param id идентификатор сеанса int.
+     * @return Session из базы по нужному id.
+     */
+    public Session findById(int id) {
+        return repository.findById(id);
+    }
 }

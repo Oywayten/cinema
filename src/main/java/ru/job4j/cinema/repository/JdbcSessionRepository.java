@@ -24,10 +24,11 @@ public class JdbcSessionRepository implements SessionRepository {
      * Строка запроса для получения всех сеансов из хранилища сеансов
      */
     private static final String FIND_ALL = """
-             select s.id s_id, s.name s_name, h.id as h_id, h.name h_name, rows, cells
+             select s.id as s_id, s.name as s_name, s_foto as s_foto, h.id as h_id, h.name h_name, rows, cells
              from sessions as s join halls as h
              on s.halls_id = h.id;
             """;
+    private static final String FIND_BY_ID = "SELECT * FROM sessions WHERE id = ?";
     /**
      * Логгер для логирования
      */
@@ -78,10 +79,31 @@ public class JdbcSessionRepository implements SessionRepository {
         return new Session(
                 it.getInt("s_id"),
                 it.getString("s_name"),
+                it.getBytes("s_foto"),
                 new Hall(it.getInt("h_id"),
                 it.getString("h_name"),
                 it.getInt("rows"),
                 it.getInt("cells"))
         );
+    }
+
+    /**
+     * Возвращает сеанс по его идентификатору.
+     * @param id идентификатор сеанса int.
+     * @return Session из базы по нужному id.
+     */
+    public Session findById(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(FIND_BY_ID)) {
+            ps.setInt(1, id);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    return createSession(it);
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return null;
     }
 }

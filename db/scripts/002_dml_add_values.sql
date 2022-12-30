@@ -14,12 +14,12 @@ values
 ('Lux3d', 1, 2);
 
 INSERT INTO
-sessions (name, halls_id)
+sessions (name, foto, halls_id)
 values
-('Годзилла', 1),
-('KingCong', 2),
-('NeverLand', 3),
-('Terminator', 4);
+('Godzilla', pg_read_binary_file('img\godzilla.jpg'), 1),
+('KingCong', pg_read_binary_file('img\kingcong.jpg'), 2),
+('NeverLand', pg_read_binary_file('img\neverland.jpg'), 3),
+('Terminator', pg_read_binary_file('img\terminator.jpg'), 4);
 
 INSERT INTO
 tickets (session_id, pos_row, cell, user_id)

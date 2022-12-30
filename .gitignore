@@ -36,3 +36,6 @@ hs_err_pid*
 /target/checkstyle-checker.xml
 /target/checkstyle-result.xml
 testdb.*
+
+*.swp
+commit.txt

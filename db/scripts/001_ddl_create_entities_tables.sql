@@ -37,12 +37,14 @@ COMMENT ON column halls.cells IS 'Количество мест в зале';
 CREATE TABLE sessions (
   id SERIAL PRIMARY KEY,
   name text,
+  foto BYTEA,
   halls_id int NOT NULL REFERENCES halls(id)
 );
 
 comment on table sessions is 'Таблица сеансов';
 comment on column sessions.id is 'Идентификатор сеанса';
 comment on column sessions.name is 'Название фильма';
+comment on column sessions.foto is 'Постер фильма';
 comment on column sessions.halls is 'Идентификатор зала';
 
 
