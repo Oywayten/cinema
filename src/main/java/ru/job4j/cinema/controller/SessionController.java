@@ -36,19 +36,20 @@ public class SessionController {
     }
 
     /**
-     * Вывод сеансов.
-     * При переходе пользователя на конечную точку "/session", метод по GET-запросу возвращает представления с выводом
-     * всех сеансов. Сохраняет информацию о пользователе из сессии и передает в представление список сеансов.
+     * Метод вызывается на конечной точке /index и делает проверку пользователя.
+     * Если не выполнен вход в систему, то пользователю назначается имя Гость.
+     * Далее происходит вывод сеансов: метод по GET-запросу возвращает представление с выводом
+     * всех сеансов.
      *
      * @param model   {@link Model} для передачи списка сеансов и информации из сессии в представление.
      * @param session {@link HttpSession} сессия пользователя для получения пользователя и передачи в представление.
      * @return наименование представления для {@link org.springframework.web.servlet.ViewResolver}.
      */
-    @GetMapping("/sessions")
+    @GetMapping("/index")
     public String sessions(Model model, HttpSession session) {
         model.addAttribute("sessions", sessionService.findAll());
         setUser(model, session);
-        return "sessions";
+        return "index";
     }
     // TODO: 28.12.2022 Дописать тут выбор сеанса и отправку, потом редирект на выбор места (вью и метод). Далее с вью выбора места - POST отправка.
 
@@ -61,5 +62,4 @@ public class SessionController {
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(new ByteArrayResource(session.getPhoto()));
     }
-
 }
