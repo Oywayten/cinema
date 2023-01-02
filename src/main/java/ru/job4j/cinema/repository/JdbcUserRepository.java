@@ -19,20 +19,28 @@ import java.util.Optional;
 @Repository
 public class JdbcUserRepository implements UserRepository {
     /**
+     * Константа наименования таблицы users
+     */
+    public static final String HALLS = "users";
+    /**
+     * Константа запроса к таблице select * from users
+     */
+    public static final String SELECT_STATEMENT = "select * from " + HALLS;
+    /**
      * Строка запроса к БД на добавление пользователя
      */
     private static final String ADD =
-            "INSERT INTO users (username, password, email, phone) VALUES (?, ?, ?, ?) limit 1";
+            "INSERT INTO " + HALLS + " (username, password, email, phone) VALUES (?, ?, ?, ?) limit 1";
     /**
      * Строка запроса к БД на получение пользователя по емейлу или паролю
      */
     private static final String FIND_USER_BY_EMAIL_AND_PASSWORD =
-            "select * from users where email = ? and password = ?";
+            SELECT_STATEMENT + " where email = ? and password = ?";
     /**
      * Строка запроса к БД на получение пользователя по емейлу или паролю
      */
     private static final String FIND_USER_BY_PHONE_AND_PASSWORD =
-            "select * from users where phone = ? and password = ?";
+            SELECT_STATEMENT + " where phone = ? and password = ?";
     /**
      * Логгер для логирования
      */
