@@ -15,6 +15,7 @@ import ru.job4j.cinema.service.SessionService;
 
 import static ru.job4j.cinema.util.Util.setUser;
 
+
 /**
  * Контроллер сеансов.
  * Created by Oywayten on 20.12.2022.
@@ -27,11 +28,13 @@ public class SessionController {
     private final SessionService sessionService;
 
     /**
-     * Конструктор принимает сервис сеансов {@link SessionService} и инициализирует ими переменную {@link #sessionService}.
+     * Конструктор принимает сервис сеансов {@link SessionService} и инициализирует ими
+     * переменную {@link #sessionService}.
      *
      * @param sessionService Сервис сеансов {@link SessionService} для работы контроллера.
      */
-    public SessionController(SessionService sessionService) {
+    public SessionController(final SessionService sessionService) {
+        // TODO: 05.01.2023 Если не работает, то убрать final тут и в других местах
         this.sessionService = sessionService;
     }
 
@@ -46,15 +49,20 @@ public class SessionController {
      * @return наименование представления для {@link org.springframework.web.servlet.ViewResolver}.
      */
     @GetMapping("/index")
-    public String sessions(Model model, HttpSession session) {
+    public String sessions(final Model model, final HttpSession session) {
         model.addAttribute("sessions", sessionService.findAll());
         setUser(model, session);
         return "sessions_view";
     }
-    // TODO: 28.12.2022 Дописать тут выбор сеанса и отправку, потом редирект на выбор места (вью и метод). Далее с вью выбора места - POST отправка.
 
+    /**
+     * Метод для получения в представление постера сеанса из БД по id сеанса.
+     *
+     * @param sessionId id сеанса в базе для получения постера сеанса.
+     * @return {@link ResponseEntity} с полученным постером.
+     */
     @GetMapping("/photoSession/{sessionId}")
-    public ResponseEntity<Resource> download(@PathVariable("sessionId") Integer sessionId) {
+    public ResponseEntity<Resource> download(@PathVariable("sessionId") final Integer sessionId) {
         Session session = sessionService.findById(sessionId);
         return ResponseEntity.ok()
                 .headers(new HttpHeaders())

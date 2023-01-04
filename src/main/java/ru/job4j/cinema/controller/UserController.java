@@ -81,7 +81,8 @@ public class UserController {
      */
     @GetMapping("/loginPage")
     public String loginPage(Model model, @RequestParam(name = "fail", required = false) String fail) {
-        model.addAttribute("fail", fail != null); //// TODO: 27.12.2022 Обработать как loginPage в dream_job
+        model.addAttribute("fail", fail != null);
+        // TODO: 27.12.2022 Обработать как loginPage в dream_job
         return "login_view";
     }
 
@@ -117,6 +118,10 @@ public class UserController {
         session.setAttribute("user", userDb.get());
         return "redirect:/index";
     }
+
+    // TODO: 04.01.2023 Сделать одну страницу для проверки
+    //  залогинивания по почте или телефону, но чтобы можно
+    //  было ставить галочку почта это или телефон - как идея.
 
 
     @PostMapping("/phoneLogin")
