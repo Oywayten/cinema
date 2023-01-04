@@ -45,7 +45,7 @@ public class UserController {
     @GetMapping("/addUser")
     public String addUser(Model model) {
         model.addAttribute("user", new User(0, "Заполните поле", "Заполните поле", "Заполните поле", "Заполните поле"));
-        return "addUser";
+        return "addUser_view";
     }
 
     /**
@@ -82,7 +82,19 @@ public class UserController {
     @GetMapping("/loginPage")
     public String loginPage(Model model, @RequestParam(name = "fail", required = false) String fail) {
         model.addAttribute("fail", fail != null); //// TODO: 27.12.2022 Обработать как loginPage в dream_job
-        return "login";
+        return "login_view";
+    }
+
+    /**
+     * Метод делает недействительной сессию работы пользователя.
+     *
+     * @param session сессия пользователя.
+     * @return строку с редиректом на представление для входа в систему.
+     */
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/loginPage";
     }
 
     /**

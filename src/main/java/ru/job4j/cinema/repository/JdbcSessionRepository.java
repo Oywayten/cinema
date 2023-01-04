@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Класс для работы с данными базы sessions.
- * Created by Oywayten on 12.10.2022.
+ * Created by Oywayten on 19.12.2022.
  */
 @Repository
 public class JdbcSessionRepository implements SessionRepository {

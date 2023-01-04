@@ -49,7 +49,7 @@ public class SessionController {
     public String sessions(Model model, HttpSession session) {
         model.addAttribute("sessions", sessionService.findAll());
         setUser(model, session);
-        return "index";
+        return "sessions_view";
     }
     // TODO: 28.12.2022 Дописать тут выбор сеанса и отправку, потом редирект на выбор места (вью и метод). Далее с вью выбора места - POST отправка.
 

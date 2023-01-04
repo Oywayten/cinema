@@ -34,11 +34,16 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-
+    /**
+     *
+     * @param model
+     * @param session
+     * @return
+     */
     @GetMapping("/getTicket")
     public String getTicket(Model model, HttpSession session) {
         setUser(model, session);
-        return "sessions";
+        return "sessions_view";
     }
 
     /**
