@@ -18,7 +18,8 @@ public class SessionService {
     public SessionRepository repository;
 
     /**
-     * Конструктор принимает репозиторий сеансов и инициализирует им переменную {@link #repository}.
+     * Конструктор принимает репозиторий сеансов и инициализирует
+     * им переменную {@link #repository}.
      *
      * @param repository репозиторий сеансов для работы сервиса.
      */
@@ -37,10 +38,21 @@ public class SessionService {
 
     /**
      * Возвращает сеанс по его идентификатору.
+     *
      * @param id идентификатор сеанса int.
      * @return Session из базы по нужному id.
      */
     public Session findById(int id) {
         return repository.findById(id);
+    }
+
+    /**
+     * Метод возвращает массив с количеством рядов и мест на сеансе.
+     *
+     * @param id идентификатор сессии для получения рядов и мест.
+     * @return int[] в массиве два int: количество рядов и мест в них.
+     */
+    public int[] getValue(int id) {
+        return repository.getValue(id);
     }
 }

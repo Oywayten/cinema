@@ -11,10 +11,10 @@
 + Maven 4.0;
 + Spring boot;
 + Thymeleaf;
-+ Bootstrap;
-+ PostgreSQL;
++ Bootstrap 5;
++ PostgreSQL 14;
 + JDBC;
-+ Liquibase
++ Liquibase;
 + H2 1.4;
 + Log4j;
 + JUnit 5;

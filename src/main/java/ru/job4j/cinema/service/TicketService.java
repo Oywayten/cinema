@@ -18,7 +18,8 @@ public class TicketService {
     private final TicketRepository repository;
 
     /**
-     * Конструктор принимает репозиторий купленных билетов и инициализирует им переменную {@link #repository}.
+     * Конструктор принимает репозиторий купленных билетов и инициализирует
+     * им переменную {@link #repository}.
      *
      * @param repository репозиторий купленных билетов для работы сервиса.
      */

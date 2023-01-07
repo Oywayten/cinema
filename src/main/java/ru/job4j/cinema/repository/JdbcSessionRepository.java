@@ -24,11 +24,12 @@ public class JdbcSessionRepository implements SessionRepository {
      * Строка запроса для получения всех сеансов из хранилища сеансов
      */
     private static final String FIND_ALL = """
-             select s.id as s_id, s.name as s_name, s_foto as s_foto, h.id as h_id, h.name h_name, rows, cells
+             select s.id as s_id, s.name as s_name, s.foto as s_foto,
+             h.id as h_id, h.name h_name, rows, cells
              from sessions as s join halls as h
              on s.halls_id = h.id;
             """;
-    private static final String FIND_BY_ID = "SELECT * FROM sessions WHERE id = ?";
+    private static final String FIND_BY_ID = FIND_ALL + " WHERE s.id = ?";
     /**
      * Логгер для логирования
      */
@@ -81,14 +82,15 @@ public class JdbcSessionRepository implements SessionRepository {
                 it.getString("s_name"),
                 it.getBytes("s_foto"),
                 new Hall(it.getInt("h_id"),
-                it.getString("h_name"),
-                it.getInt("rows"),
-                it.getInt("cells"))
+                        it.getString("h_name"),
+                        it.getInt("rows"),
+                        it.getInt("cells"))
         );
     }
 
     /**
      * Возвращает сеанс по его идентификатору.
+     *
      * @param id идентификатор сеанса int.
      * @return Session из базы по нужному id.
      */

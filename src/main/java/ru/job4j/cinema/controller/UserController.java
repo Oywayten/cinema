@@ -71,6 +71,18 @@ public class UserController {
     }
 
     /**
+     * Метод делает недействительной сессию работы пользователя.
+     *
+     * @param session сессия пользователя.
+     * @return строку с редиректом на представление для входа в систему.
+     */
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/loginPage";
+    }
+
+    /**
      * Принимает атрибут {@link Model} для добавления в него атрибута "fail" и атрибут {@link Boolean} fail, который
      * парсится из строки get-запроса вида {@code loginPage?fail=email} с помощью аннотации {@link RequestParam}.
      *
@@ -84,18 +96,6 @@ public class UserController {
         model.addAttribute("fail", fail != null);
         // TODO: 27.12.2022 Обработать как loginPage в dream_job
         return "login_view";
-    }
-
-    /**
-     * Метод делает недействительной сессию работы пользователя.
-     *
-     * @param session сессия пользователя.
-     * @return строку с редиректом на представление для входа в систему.
-     */
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/loginPage";
     }
 
     /**

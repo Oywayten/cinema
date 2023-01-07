@@ -30,7 +30,8 @@ public class JdbcUserRepository implements UserRepository {
      * Строка запроса к БД на добавление пользователя
      */
     private static final String ADD =
-            "INSERT INTO " + HALLS + " (username, password, email, phone) VALUES (?, ?, ?, ?) limit 1";
+            "INSERT INTO " + HALLS
+            + " (username, password, email, phone) VALUES (?, ?, ?, ?) limit 1";
     /**
      * Строка запроса к БД на получение пользователя по емейлу или паролю
      */

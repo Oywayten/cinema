@@ -35,18 +35,6 @@ public class TicketController {
     }
 
     /**
-     *
-     * @param model
-     * @param session
-     * @return
-     */
-    @GetMapping("/getTicket")
-    public String getTicket(Model model, HttpSession session) {
-        setUser(model, session);
-        return "sessions_view";
-    }
-
-    /**
      * Метод добавляет купленный билет {@link Ticket} в базу, после нажатия пользователем кнопки "Купить".
      *
      * @param redirectAttributes {@link RedirectAttributes}, специализация интерфейса {@link Model}

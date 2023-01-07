@@ -1,0 +1,74 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <title>Oywayten Cinema</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Oywayten Cinema<small th:text="${user.name}"></small></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" th:href="@{/sessions}"> Сеансы </a>
+                <a class="nav-item nav-link" th:if="${user.name == 'Гость'}"
+                   th:href="@{/loginPage}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Войти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.name != 'Гость'}" th:href="@{/logout}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Выйти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.name == 'Гость'}" th:href="@{/addUser}">Регистрация</a>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <!--    todo это представление посадки, тут делать через thymeleaf.sequence-->
+        <form th:action="@{/setTicket}" method="POST">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Ряд</th>
+                    <th scope="col">Место</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="row: ${#numbers.sequence(1, ${session.hall.rows})}">
+                    <th scope="col" th:text=*{row}"></th>
+                    <td th:each="cell: ${#numbers.sequence(1, ${session.hall.cells})}"
+                        th:text="*{cell}"></td>
+                </tr>
+                </tbody>
+
+
+
+                <button class="btn" type="submit" name="session" th:value="${session}"
+                        value="session">
+                    <span class="card p-2 g-col-6 bg-primary" style="width: 12rem;">
+                        <img th:width="150" th:high="150" th:src="@{|/photoSession/${sessionId}|}"
+                             src="../img/godzilla.jpg"
+                             th:alt="${session.name}">
+                    </span>
+                </button>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>
