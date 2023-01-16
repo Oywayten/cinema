@@ -18,7 +18,7 @@ public class Ticket {
     /**
      * Номер ряда в зале
      */
-    private int posRow;
+    private int row;
     /**
      * Номер места в ряду
      */
@@ -40,7 +40,7 @@ public class Ticket {
     public Ticket(int id, int sessionId, int posRow, int cell, int userId) {
         this.id = id;
         this.sessionId = sessionId;
-        this.posRow = posRow;
+        this.row = posRow;
         this.cell = cell;
         this.userId = userId;
     }
@@ -61,12 +61,12 @@ public class Ticket {
         this.sessionId = sessionId;
     }
 
-    public int getPosRow() {
-        return posRow;
+    public int getRow() {
+        return row;
     }
 
-    public void setPosRow(int posRow) {
-        this.posRow = posRow;
+    public void setRow(int row) {
+        this.row = row;
     }
 
     public int getCell() {
@@ -94,11 +94,11 @@ public class Ticket {
             return false;
         }
         Ticket ticket = (Ticket) o;
-        return sessionId == ticket.sessionId && posRow == ticket.posRow && cell == ticket.cell;
+        return sessionId == ticket.sessionId && row == ticket.row && cell == ticket.cell;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sessionId, posRow, cell);
+        return Objects.hash(sessionId, row, cell);
     }
 }

@@ -46,13 +46,4 @@ public class SessionService {
         return repository.findById(id);
     }
 
-    /**
-     * Метод возвращает массив с количеством рядов и мест на сеансе.
-     *
-     * @param id идентификатор сессии для получения рядов и мест.
-     * @return int[] в массиве два int: количество рядов и мест в них.
-     */
-    public int[] getValue(int id) {
-        return repository.getValue(id);
-    }
 }

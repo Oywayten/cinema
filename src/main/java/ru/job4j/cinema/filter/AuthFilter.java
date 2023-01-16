@@ -2,9 +2,9 @@ package ru.job4j.cinema.filter;
 
 import org.springframework.stereotype.Component;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
@@ -22,6 +22,8 @@ public class AuthFilter implements Filter {
             "login",
             "addUser",
             "registration",
+            "photoSession",
+            "sessions",
             "index");
 
     /**
@@ -31,10 +33,11 @@ public class AuthFilter implements Filter {
      * с return.
      * Если же страница не совпадает с {@link #ALLOWED_PAGE_SET}, то происходит проверка пользователя
      * и redirect, если это не зарегистрированный пользователь.
-     * @param request запрос {@link ServletRequest}
+     *
+     * @param request  запрос {@link ServletRequest}
      * @param response ответ {@link ServletResponse}
-     * @param chain цепочка вызовов {@link FilterChain}
-     * @throws IOException если во время обработки произошла ошибка, связанная с вводом-выводом.
+     * @param chain    цепочка вызовов {@link FilterChain}
+     * @throws IOException      если во время обработки произошла ошибка, связанная с вводом-выводом.
      * @throws ServletException если произошло исключение, которое мешает нормальной работе filterChain.
      */
     @Override
@@ -47,7 +50,7 @@ public class AuthFilter implements Filter {
             chain.doFilter(req, res);
             return;
         }
-        // TODO: 04.01.2023 AuthFilter.doFilter() -  Проверить, можно ли тут не if-if, а через if-else
+        // TODOS: 04.01.2023 AuthFilter.doFilter() -  Проверить, можно ли тут не if-if, а через if-else
         if (req.getSession().getAttribute("user") == null) {
             res.sendRedirect(req.getContextPath() + "/loginPage");
             return;
@@ -57,10 +60,11 @@ public class AuthFilter implements Filter {
 
     /**
      * Вспомогательный метод для проверки совпадения окончания uri страницы со списком разрешенных значений.
+     *
      * @param uri переданный адрес страницы для проверки
      * @return true, если совпало с любым первым разрешенным вариантом, иначе - false.
      */
     private boolean pageCheck(String uri) {
-        return ALLOWED_PAGE_SET.stream().anyMatch(uri::endsWith);
+        return ALLOWED_PAGE_SET.stream().anyMatch(uri::contains);
     }
 }

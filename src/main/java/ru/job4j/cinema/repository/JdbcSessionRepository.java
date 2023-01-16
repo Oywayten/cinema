@@ -27,20 +27,22 @@ public class JdbcSessionRepository implements SessionRepository {
              select s.id as s_id, s.name as s_name, s.foto as s_foto,
              h.id as h_id, h.name h_name, rows, cells
              from sessions as s join halls as h
-             on s.halls_id = h.id;
+             on s.halls_id = h.id
             """;
     private static final String FIND_BY_ID = FIND_ALL + " WHERE s.id = ?";
     /**
      * Логгер для логирования
      */
-    private static final Logger LOG = LogManager.getLogger(JdbcSessionRepository.class);
+    private static final Logger LOG =
+            LogManager.getLogger(JdbcSessionRepository.class);
     /**
      * Пул подключений к БД
      */
     private final BasicDataSource pool;
 
     /**
-     * Конструктор принимает пул подключений к БД и инициализирует ими поле {@link #pool}.
+     * Конструктор принимает пул подключений к
+     * БД и инициализирует ими поле {@link #pool}.
      *
      * @param pool пул подключений к БД.
      */

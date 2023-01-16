@@ -45,7 +45,7 @@ comment on table sessions is 'Таблица сеансов';
 comment on column sessions.id is 'Идентификатор сеанса';
 comment on column sessions.name is 'Название фильма';
 comment on column sessions.foto is 'Постер фильма';
-comment on column sessions.halls is 'Идентификатор зала';
+comment on column sessions.halls_id is 'Идентификатор зала';
 
 
 

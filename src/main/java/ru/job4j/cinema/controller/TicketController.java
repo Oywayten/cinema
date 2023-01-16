@@ -3,16 +3,15 @@ package ru.job4j.cinema.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.job4j.cinema.model.Ticket;
+import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.service.TicketService;
 
 import java.util.Optional;
-
-import static ru.job4j.cinema.util.Util.setUser;
 
 /**
  * Контроллер купленных билетов.
@@ -26,33 +25,44 @@ public class TicketController {
     private final TicketService ticketService;
 
     /**
-     * Конструктор принимает сервис купленных {@link TicketService} билетов и инициализирует ими переменную {@link #ticketService}.
+     * Конструктор принимает сервис купленных {@link TicketService} билетов
+     * и инициализирует ими переменную {@link #ticketService}.
      *
-     * @param ticketService Сервис купленных билетов {@link TicketService} для работы контроллера.
+     * @param ticketService Сервис купленных билетов {@link TicketService}
+     *                      для работы контроллера.
      */
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
     }
 
     /**
-     * Метод добавляет купленный билет {@link Ticket} в базу, после нажатия пользователем кнопки "Купить".
+     * Метод добавляет купленный билет {@link Ticket} в базу,
+     * после нажатия пользователем кнопки "Купить".
      *
-     * @param redirectAttributes {@link RedirectAttributes}, специализация интерфейса {@link Model}
+     * @param redirectAttributes {@link RedirectAttributes},
+     *                           специализация интерфейса {@link Model}
      *                           для передачи атрибутов.
      * @param ticket             Выбранный билет {@link Ticket} для покупки.
-     * @return Строку редиректа на страницу подтверждения покупки.
+     * @return Строку редиректа спасибной страницы.
      */
     @PostMapping("/buyTicket")
-    public String buyTicket(final RedirectAttributes redirectAttributes,
-                            HttpSession session, @ModelAttribute Ticket ticket) {
+    public String buyTicket(@ModelAttribute Ticket ticket,
+                            @RequestParam("id") int id,
+                            HttpSession httpSession,
+                            final RedirectAttributes redirectAttributes) {
+        final User user = (User) httpSession.getAttribute("user");
+        ticket.setUserId(user.getId());
+        ticket.setSessionId(id);
         Optional<Ticket> optionalTicket = ticketService.add(ticket);
         if (optionalTicket.isEmpty()) {
             redirectAttributes.addFlashAttribute(
-                    "message", "К сожалению билет уже куплен. Попробуйте выбрать другой билет"
-        // TODO: 27.12.2022 Прописать на представлении session, как это сделано на addUser.htmo dream_job
+                    "message",
+                    "К сожалению, кто-то оказался быстрее и купил билет на выбранные места. Попробуйте\n"
+                    + "            выбрать другой билет."
             );
-            return "redirect:/selectSessions";
+            return "redirect:/sessions";
         }
-        return "redirect:/youTicket";
+        redirectAttributes.addFlashAttribute("ticket", ticket);
+        return "redirect:/thankyou";
     }
 }

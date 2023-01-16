@@ -41,24 +41,11 @@ public class UserService {
      * Возвращает {@link Optional} с первым же найденным в хранилище пользователем, у которого совпала почта,
      * или с null.
      *
-     * @param email {@link String} почта для поиска в хранилище.
-     * @param password {@link String} пароль для поиска в хранилище.
+     * @param emailOrPhone {@link String} почта для поиска в хранилище.
+     * @param password     {@link String} пароль для поиска в хранилище.
      * @return {@link Optional} содержащий {@link User} или null.
      */
-    public Optional<User> findUserByEmailAndPassword(String email, String password) {
-        return repository.findUserByEmailAndPassword(email, password);
-    }
-
-    /**
-     * Принимает телефон и ищет в хранилище пользователя, у которого совпадает телефон.
-     * Возвращает {@link Optional} с первым же найденным в хранилище пользователем, у которого совпал телефон,
-     * или с null.
-     *
-     * @param phone {@link String} телефон для поиска в хранилище.
-     * @param password {@link String} пароль для поиска {@link String}.
-     * @return {@link Optional} содержащий {@link User} или null.
-     */
-    public Optional<User> findUserByPhoneAndPassport(String phone, String password) {
-        return repository.findUserByPhoneAndPassport(phone, password);
+    public Optional<User> findUserByEmailorPhonAndPassword(String emailOrPhone, String password) {
+        return repository.findUserByEmailorPhoneAndPassword(emailOrPhone, password);
     }
 }

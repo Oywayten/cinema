@@ -21,27 +21,23 @@ public class JdbcUserRepository implements UserRepository {
     /**
      * Константа наименования таблицы users
      */
-    public static final String HALLS = "users";
+    public static final String USERS = "users";
     /**
      * Константа запроса к таблице select * from users
      */
-    public static final String SELECT_STATEMENT = "select * from " + HALLS;
+    public static final String SELECT_STATEMENT = "select * from " + USERS;
     /**
      * Строка запроса к БД на добавление пользователя
      */
     private static final String ADD =
-            "INSERT INTO " + HALLS
-            + " (username, password, email, phone) VALUES (?, ?, ?, ?) limit 1";
+            "INSERT INTO " + USERS
+            + " (username, password, email, phone) VALUES (?, ?, ?, ?)";
     /**
      * Строка запроса к БД на получение пользователя по емейлу или паролю
      */
-    private static final String FIND_USER_BY_EMAIL_AND_PASSWORD =
-            SELECT_STATEMENT + " where email = ? and password = ?";
-    /**
-     * Строка запроса к БД на получение пользователя по емейлу или паролю
-     */
-    private static final String FIND_USER_BY_PHONE_AND_PASSWORD =
-            SELECT_STATEMENT + " where phone = ? and password = ?";
+    private static final String FIND_USER_BY_EMAIL_OR_PHONE_AND_PASSWORD =
+            SELECT_STATEMENT
+            + " where (email = ? or phone = ?) and password = ?";
     /**
      * Логгер для логирования
      */
@@ -111,40 +107,21 @@ public class JdbcUserRepository implements UserRepository {
     /**
      * Находит пользователя по почте.
      *
-     * @param email почта искомого пользователя.
+     * @param mailOrPhon почта или телефон искомого пользователя.
+     * @param password пароль пользователя.
      * @return Optional.of(user) при успешном поиске, иначе {@link Optional#empty()}.
      */
     @Override
-    public Optional<User> findUserByEmailAndPassword(String email, String password) {
+    public Optional<User>
+    findUserByEmailorPhoneAndPassword(String mailOrPhon, String password) {
         Optional<User> optionalUser = Optional.empty();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(FIND_USER_BY_EMAIL_AND_PASSWORD)) {
-            ps.setString(1, email);
-            ps.setString(2, password);
-            try (ResultSet it = ps.executeQuery()) {
-                if (it.next()) {
-                    optionalUser = Optional.of(createUser(it));
-                }
-            }
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
-        return optionalUser;
-    }
-
-    /**
-     * Находит пользователя по телефону.
-     *
-     * @param phone телефон искомого пользователя.
-     * @return Optional.of(user) при успешном поиске, иначе {@link Optional#empty()}.
-     */
-    @Override
-    public Optional<User> findUserByPhoneAndPassport(String phone, String password) {
-        Optional<User> optionalUser = Optional.empty();
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(FIND_USER_BY_PHONE_AND_PASSWORD)) {
-            ps.setString(1, phone);
-            ps.setString(2, password);
+             PreparedStatement ps =
+                     cn.prepareStatement(
+                             FIND_USER_BY_EMAIL_OR_PHONE_AND_PASSWORD)) {
+            ps.setString(1, mailOrPhon);
+            ps.setString(2, mailOrPhon);
+            ps.setString(3, password);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
                     optionalUser = Optional.of(createUser(it));

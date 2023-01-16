@@ -15,27 +15,18 @@ import java.util.Properties;
  */
 @SpringBootApplication
 public class Main {
-    /**
-     * Метод с которого начинает свою работу приложение.
-     *
-     * @param args список переданных аргументов (не используется).
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
-        System.out.println("Go to http://localhost:8090/index");
-    }
 
     /**
-     * Метод считывает файл свойств для подключения к
+     * Метод считывает файл свойств для подключения к БД.
      *
-     * @return
+     * @return свойства подключения {@link Properties}.
      */
     private Properties loadDbProperties() {
         Properties cfg = new Properties();
         try (BufferedReader io = new BufferedReader(
                 new InputStreamReader(
                         Objects.requireNonNull(Main.class.getClassLoader()
-                                .getResourceAsStream("db/liquibase.properties"))
+                                .getResourceAsStream("db.properties"))
                 )
         )) {
             cfg.load(io);
@@ -68,5 +59,15 @@ public class Main {
         pool.setMaxIdle(10);
         pool.setMaxOpenPreparedStatements(100);
         return pool;
+    }
+
+    /**
+     * Метод с которого начинает свою работу приложение.
+     *
+     * @param args список переданных аргументов (не используется).
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
+        System.out.println("Go to http://localhost:8090/index");
     }
 }

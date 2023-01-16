@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.job4j.cinema.model.Session;
+import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.service.SessionService;
 
 import static ru.job4j.cinema.util.Util.setUser;
@@ -36,7 +37,6 @@ public class SessionController {
      *                       для работы контроллера.
      */
     public SessionController(final SessionService sessionService) {
-        // TODO: 05.01.2023 Если не работает, то убрать final тут и в других местах
         this.sessionService = sessionService;
     }
 
@@ -53,18 +53,19 @@ public class SessionController {
      * @return наименование
      * представления для {@link org.springframework.web.servlet.ViewResolver}.
      */
-    @GetMapping({"/index", "/session"})
+    @GetMapping({"/index", "/sessions"})
     public String sessions(final Model model, final HttpSession session) {
         model.addAttribute("sessions", sessionService.findAll());
         setUser(model, session);
         return "sessions_view";
     }
 
+
     /**
-     * Сюда попадаем с вьюшки session_view.
+     * Сюда попадаем с вьюшки sessions_view.
      * Метод передает выбранный сеанс и параметры сессии
      * в представление выбора ряда и места.
-     * Возвращает redirect:/hall.
+     * Возвращает представление с выбором места на выбранный сеанс.
      *
      * @param model       {@link Model} для передачи списка сеансов и
      *                    информации из сессии в представление.
@@ -72,32 +73,49 @@ public class SessionController {
      * @param httpSession {@link HttpSession} сессия пользователя для получения
      *                    пользователя и передачи в представление.
      * @return {@link String} наименования
-     * представления для выдачи пользователю.
+     * представления выбора ряда и места для отображение пользователю.
      */
-    @GetMapping("/session/sessionId")
+    @GetMapping("/session1/{sessionId}")
     public String selectPlace(
             Model model,
             @PathVariable("sessionId") int id,
             HttpSession httpSession) {
-        model.addAttribute("session", sessionService.findById(id));
+        model.addAttribute("session1", sessionService.findById(id));
         setUser(model, httpSession);
-        return "redirect:/places_view";
+        return "places_view";
     }
 
     /**
-     * /cinema/godzilla
+     * Метод отображает данные нужного билета пользователю: сеанс, ряд и место.
+     * Выводит сводную информацию пользователю для окончательного
+     * подтверждения покупки
      * <p>
-     * Сюда попадаем при редиректе на /places и
-     * возвращает представление places_view со свободными и занятыми местами.
-     * Во вьюшке проверяем, не равно ли место тому, что есть в базе,
-     * иначе место другого цвета. Проверяем через равенство HashSet, чтобы поиск был быстрый
-     * по хэшкоду.
+     * Сюда попадаем с вьюшки places_view.
+     * Метод принимает id сеанса, ряд и место, и параметры сессии.
+     * Возвращает представление со сводкой по билету.
+     *
+     * @param model       {@link Model} для передачи списка сеансов и
+     *                    информации из сессии в представление.
+     * @param sessionId   идентификатор сеанса типа int.
+     * @param row         номер выбранного ряда int.
+     * @param cell        номер выбранного места int.
+     * @param httpSession {@link HttpSession} сессия пользователя для получения
+     *                    пользователя и передачи в представление.
+     * @return {@link String} наименования
+     * представления для выдачи пользователю.
      */
-    @GetMapping("/places")
-    public String places(@ModelAttribute Session session, final Model model, final HttpSession httpSession) {
+    @GetMapping("/session2/{sessionId}/{row}/{cell}")
+    public String summary(
+            Model model,
+            @PathVariable("sessionId") int sessionId,
+            @PathVariable("row") int row,
+            @PathVariable("cell") int cell,
+            HttpSession httpSession) {
+        model.addAttribute("session1", sessionService.findById(sessionId));
+        model.addAttribute("row", row);
+        model.addAttribute("cell", cell);
         setUser(model, httpSession);
-        model.addAttribute("hall", session.getHall());
-        return "places_view";
+        return "summary_view";
     }
 
     /**
@@ -114,5 +132,27 @@ public class SessionController {
                 .contentLength(session.getPhoto().length)
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(new ByteArrayResource(session.getPhoto()));
+    }
+
+    /**
+     * Метод получает модель {@link Model}, сессию {@link HttpSession} и билет {@link Ticket},
+     * который дополняет идентификатором пользователя из {@link HttpSession} и добавляет в модель
+     * вместе с информацией о сеансе. Возвращает представление спасибной страницы.
+     *
+     * @param model       {@link Model} для передачи списка сеансов и
+     *                    информации из сессии в представление.
+     * @param ticket      билет {@link Ticket}.
+     * @param httpSession {@link HttpSession} сессия пользователя для получения
+     *                    пользователя и передачи в представление.
+     * @return {@link String} наименования
+     * представления для выдачи пользователю.
+     */
+    @GetMapping("/thankyou")
+    public String thankyou(Model model, @ModelAttribute Ticket ticket, HttpSession httpSession) {
+        final int sessionId = ticket.getSessionId();
+        model.addAttribute("session1", sessionService.findById(sessionId));
+        model.addAttribute("ticket", ticket);
+        setUser(model, httpSession);
+        return "thankyou_view";
     }
 }

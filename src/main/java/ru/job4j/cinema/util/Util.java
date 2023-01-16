@@ -1,5 +1,6 @@
 package ru.job4j.cinema.util;
 
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import ru.job4j.cinema.model.User;

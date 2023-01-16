@@ -32,18 +32,9 @@ public interface UserRepository {
     /**
      * Метод для поиска пользователя по почте и паролю.
      *
-     * @param email почта для поиска в хранилище.
+     * @param emailOrPhone почта для поиска в хранилище.
      * @param password пароль для поиска в хранилище.
      * @return Optional содержащий пользователя {@link User} с указанными почтой и паролем, или null.
      */
-    Optional<User> findUserByEmailAndPassword(String email, String password);
-
-    /**
-     * Метод для поиска пользователя по телефону.
-     *
-     * @param phone телефон для поиска в хранилище.
-     * @param password пароль для поиска в хранилище.
-     * @return Optional содержащий пользователя {@link User} с указанными почтой и паролем, или null.
-     */
-    Optional<User> findUserByPhoneAndPassport(String phone, String password);
+    Optional<User> findUserByEmailorPhoneAndPassword(String emailOrPhone, String password);
 }

@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * Класс для работы с данными базы купленных билетов tickets.
  * Created by Oywayten on 19.12.2022.
-*/
+ */
 @Repository
 public class JdbcTicketRepository implements TicketRepository {
     /**
@@ -28,7 +28,8 @@ public class JdbcTicketRepository implements TicketRepository {
     /**
      * Логгер для логирования
      */
-    private static final Logger LOG = LogManager.getLogger(JdbcTicketRepository.class);
+    private static final Logger LOG =
+            LogManager.getLogger(JdbcTicketRepository.class);
     /**
      * Пул подключений к БД
      */
@@ -53,9 +54,11 @@ public class JdbcTicketRepository implements TicketRepository {
     public Optional<Ticket> add(Ticket ticket) {
         Optional<Ticket> optionalTicket = Optional.empty();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(ADD, PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement ps =
+                     cn.prepareStatement(ADD,
+                             PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, ticket.getSessionId());
-            ps.setInt(2, ticket.getPosRow());
+            ps.setInt(2, ticket.getRow());
             ps.setInt(3, ticket.getCell());
             ps.setInt(4, ticket.getUserId());
             ps.execute();

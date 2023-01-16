@@ -92,45 +92,19 @@ public class UserController {
      * @return {@link String} наименование представления логина пользователя в систему.
      */
     @GetMapping("/loginPage")
-    public String loginPage(Model model, @RequestParam(name = "fail", required = false) String fail) {
+    public String loginPage(Model model,
+                            @RequestParam(name = "fail", required = false) String fail) {
         model.addAttribute("fail", fail != null);
-        // TODO: 27.12.2022 Обработать как loginPage в dream_job
         return "login_view";
     }
 
-    /**
-     * Метод входа по почте и паролю.
-     *
-     * @param user {@link User} для получения пользователя из данных переданной модели с помощью
-     *             аннотации {@link ModelAttribute}
-     * @param req  {@link HttpServletRequest} HTTP запрос для получения сессии {@link HttpSession}.
-     * @return {@link String} с перенаправлением на представление главной страницы.
-     */
-    @PostMapping("/emailLogin")
-    public String loginEmail(@ModelAttribute User user, HttpServletRequest req) {
-        Optional<User> userDb = userService.findUserByEmailAndPassword(
+    @PostMapping("/login")
+    public String login(@ModelAttribute User user, HttpServletRequest req) {
+        Optional<User> userDb = userService.findUserByEmailorPhonAndPassword(
                 user.getEmail(), user.getPassword()
         );
         if (userDb.isEmpty()) {
-            return "redirect:/loginPage?fail=email";
-        }
-        HttpSession session = req.getSession();
-        session.setAttribute("user", userDb.get());
-        return "redirect:/index";
-    }
-
-    // TODO: 04.01.2023 Сделать одну страницу для проверки
-    //  залогинивания по почте или телефону, но чтобы можно
-    //  было ставить галочку почта это или телефон - как идея.
-
-
-    @PostMapping("/phoneLogin")
-    public String loginPhone(@ModelAttribute User user, HttpServletRequest req) {
-        Optional<User> userDb = userService.findUserByEmailAndPassword(
-                user.getPhone(), user.getPassword()
-        );
-        if (userDb.isEmpty()) {
-            return "redirect:/loginPage?fail=phone";
+            return "redirect:/loginPage?fail=true";
         }
         HttpSession session = req.getSession();
         session.setAttribute("user", userDb.get());
