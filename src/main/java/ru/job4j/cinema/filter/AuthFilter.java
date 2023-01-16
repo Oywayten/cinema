@@ -50,7 +50,6 @@ public class AuthFilter implements Filter {
             chain.doFilter(req, res);
             return;
         }
-        // TODOS: 04.01.2023 AuthFilter.doFilter() -  Проверить, можно ли тут не if-if, а через if-else
         if (req.getSession().getAttribute("user") == null) {
             res.sendRedirect(req.getContextPath() + "/loginPage");
             return;
