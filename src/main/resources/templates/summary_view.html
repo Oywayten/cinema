@@ -20,7 +20,7 @@
 <body class="body bg-dark">
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Oywayten Cinema Webapp</a>
+        <a class="navbar-brand" href="#" th:href="@{/index}">Oywayten Cinema Webapp</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -83,7 +83,7 @@
                 </table>
 
                 <div class="row mt-3">
-                    <div class="col-1">
+
                         <form th:action="@{/buyTicket}" method="POST">
                             <input type="hidden" name="id" th:value="${session1.id}">
                             <input type="hidden" name="row" th:value="${row}">
@@ -91,13 +91,14 @@
                             <button type="submit"
                                     class="btn btn-primary">Купить
                             </button>
+                            <a class="btn btn-primary text-bg-danger" th:href="@{/sessions}"
+                               role="button">Отмена
+                            </a>
                         </form>
-                    </div>
-                    <div class="col-1">
-                        <a class="btn btn-primary text-bg-danger" th:href="@{/sessions}"
-                           role="button">Отмена
-                        </a>
-                    </div>
+
+
+
+
                 </div>
             </div>
         </div>

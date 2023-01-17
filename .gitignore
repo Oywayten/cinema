@@ -39,3 +39,6 @@ testdb.*
 
 *.swp
 /tmp
+mvnw
+mvnw.cmd
+/.mvn

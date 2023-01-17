@@ -43,6 +43,25 @@ public class SessionController {
     /**
      * Метод вызывается на конечной точке /index и делает проверку пользователя.
      * Если не выполнен вход в систему, то пользователю назначается имя Гость.
+     * Далее происходит вывод представления главной страницы.
+     *
+     * @param model   {@link Model} для передачи списка сеансов и
+     *                информации из сессии в представление.
+     * @param session {@link HttpSession} сессия пользователя для получения
+     *                пользователя и передачи в представление.
+     * @return наименование
+     * представления для {@link org.springframework.web.servlet.ViewResolver}.
+     */
+    @GetMapping("/index")
+    public String index(final Model model, final HttpSession session) {
+        model.addAttribute("sessions", sessionService.findAll());
+        setUser(model, session);
+        return "index_view";
+    }
+
+    /**
+     * Метод вызывается на конечной точке /session и делает проверку пользователя.
+     * Если не выполнен вход в систему, то пользователю назначается имя Гость.
      * Далее происходит вывод сеансов: метод по GET-запросу возвращает
      * представление с выводом всех сеансов.
      *
@@ -53,7 +72,7 @@ public class SessionController {
      * @return наименование
      * представления для {@link org.springframework.web.servlet.ViewResolver}.
      */
-    @GetMapping({"/index", "/sessions"})
+    @GetMapping("/sessions")
     public String sessions(final Model model, final HttpSession session) {
         model.addAttribute("sessions", sessionService.findAll());
         setUser(model, session);
