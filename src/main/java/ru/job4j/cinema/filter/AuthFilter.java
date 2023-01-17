@@ -23,7 +23,6 @@ public class AuthFilter implements Filter {
             "addUser",
             "registration",
             "photoSession",
-            "sessions",
             "index");
 
     /**

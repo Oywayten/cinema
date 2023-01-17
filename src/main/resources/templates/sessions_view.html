@@ -46,11 +46,15 @@
         </div>
     </nav>
     <div class="row">
-        <div th:if="${message != null}" class="alert alert-danger" role="alert"
+        <div style="width: 70%; min-width: 15rem" th:if="${message != null}"
+             class="alert alert-danger"
+             role="alert"
              th:text="${message}">
             К сожалению, кто-то оказался быстрее и купил билет на выбранные места. Попробуйте
             выбрать другой билет.
         </div>
+    </div>
+        <div class="row">
         <div class="col col-2" th:each="session1: ${sessions}">
             <h3 th:text="'Зал ' + ${session1.hall.name}"></h3>
             <span class="card bg-primary" style="max-width: 11rem">

@@ -26,7 +26,9 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" href="#" th:href="@{/sessions}">Сеансы</a>
-                <a class="nav-item nav-link" th:if="${user.name == 'Гость' && user.name == 'Заполните поле'}" th:href="@{/loginPage}">
+                <a class="nav-item nav-link"
+                   th:if="${user.name == 'Гость' || user.name == 'Заполните поле'}"
+                   th:href="@{/loginPage}">
                     <span>Войти</span>
                 </a>
                 <a class="nav-item nav-link" th:if="${user.name != 'Гость' && user.name != 'Заполните поле'}"
@@ -38,7 +40,8 @@
         </div>
     </nav>
     <div class="row">
-        <div class="card text-bg-dark border border-secondary" style="width: 100%">
+        <div class="card text-bg-dark border border-secondary"
+             style="width: 70%; min-width: 11rem;">
             <div class="card-header">
                 Новый пользователь.
             </div>

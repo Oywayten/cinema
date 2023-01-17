@@ -24,10 +24,10 @@ values
 /*INSERT INTO
 sessions (name, foto, halls_id)
 values
-('Godzilla', file_read('C:\projects\cinema\src\main\resources\img\godzilla.jpg'), 1),
-('KingCong', file_read('C:\projects\cinema\src/main/resources/img/kingcong.jpg'), 2),
-('NeverLand', file_read('C:\projects\cinema\src/main/resources/img/neverland.jpg'), 3),
-('Terminator', file_read('C:\projects\cinema\src/main/resources/img/terminator.jpg'), 4);*/
+('Godzilla', pg_read_binary_file('C:\projects\cinema\src\main\resources\img\godzilla.jpg'), 1),
+('KingCong', pg_read_binary_file('C:\projects\cinema\src/main/resources/img/kingcong.jpg'), 2),
+('NeverLand', pg_read_binary_file('C:\projects\cinema\src/main/resources/img/neverland.jpg'), 3),
+('Terminator', pg_read_binary_file('C:\projects\cinema\src/main/resources/img/terminator.jpg'), 4);*/
 
 INSERT INTO
 tickets (session_id, pos_row, cell, user_id)
