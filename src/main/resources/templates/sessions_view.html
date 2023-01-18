@@ -54,10 +54,10 @@
             выбрать другой билет.
         </div>
     </div>
-        <div class="row">
-        <div class="col col-2" th:each="session1: ${sessions}">
-            <h3 th:text="'Зал ' + ${session1.hall.name}"></h3>
-            <span class="card bg-primary" style="max-width: 11rem">
+        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+        <div class="col" th:each="session1: ${sessions}">
+            <h3 th:text="'Зал&nbsp;' + ${session1.hall.name}"></h3>
+            <span class="card bg-primary" style="max-width: 11rem; min-width: 5rem">
                         <img class="img-fluid" th:src="@{|/photoSession/${session1.id}|}"
                              th:alt="${session1.name}" src="">
                 <a class="stretched-link" href="https://ya.ru/"
