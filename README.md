@@ -35,7 +35,7 @@
     mvn clean package spring-boot:run
    ```
    
-## Взаимодействие с проложением
+## Взаимодействие с приложением
 - ## Главная страница
   ![index page](promo/index.jpg "index")
 - ## Регистрация
