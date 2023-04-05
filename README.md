@@ -1,11 +1,11 @@
 # Cinema Webapp
 
-## О проекте
-+ Веб-приложение для онлайн-продажи билетов в кино.
-+ Главная страница содержит форму выбора фильма. Страница содержит изображения фильмов в виде таблицы.
-+ Пользователь кликает на фильм и переходит на вид зала для выбора места.
+## About the application
++ Web application for online sale of movie tickets.
++ The main page contains a movie selection form. The page contains movie images in tables.
++ The user clicks on the movie and goes to the hall view to select a seat.
 
-## Использованные технологии
+## Technology stack:
 ```text
 + Java 17;
 + Maven 4.0;
@@ -21,38 +21,39 @@
 + Mockito 4. 
 ```
 
-## Настройка окружения
+## Application launch
 
-+ Рекомендуемый браузер Chrome.
++ Recommended browser is Chrome.
 
-1. Установить PostgreSQL: логин - postgres, пароль - password;
-2. Создать БД cinema;
+1. Install PostgreSQL: login - postgres, password - password;
+2. Create cinema database;
     ```postgres-sql
     CREATE DATABASE cinema;
     ```
-3. Собрать проект и запустить приложение Spring Boot
+3. Build the project and run the Spring Boot application
     ```shell
     mvn clean package spring-boot:run
    ```
    
-## Взаимодействие с приложением
-- ## Главная страница
+## Application interaction
+- ## Main page
   ![index page](promo/index.jpg "index")
-- ## Регистрация
-   ![add user page](promo/adduser.jpg "adduser")
-- ## Вход
+- ## Registration
+   ![add user page](promo/adduser.jpg "add user")
+- ## Login
   ![login page](promo/login.jpg "login")
-- ## Сеансы показов
-  ![sessions page](promo/sessions.jpg "sessions")
-- ## Выбор места
-  ![choose place page](promo/chooseplace.jpg "chooseplace")
-- ## Покупка билета
-  ![buy ticket page](promo/buyticket.jpg "buyticket")
-- ## Страница благодарности
-  ![thank you page](promo/thankyou.jpg "thankyou")
-- ## Билет занят
-  ![buy fail page](promo/buyfail.jpg "buyfail")
+- ## Movie sessions
+  ![sessions page](promo/sessions.jpg "movie sessions")
+- ## Select place
+  ![choose place page](promo/chooseplace.jpg "select place")
+- ## Buy a ticket
+  ![buy ticket page](promo/buyticket.jpg "buy ticket")
+- ## Thank you page
+  ![thank you page](promo/thankyou.jpg "thank you")
+- ## Buy ticket fail
+  ![buy fail page](promo/buyfail.jpg "buy fail")
 
 
-### Контакты
-email: [cpc1251@mail.ru](mailto:cpc1251@mail.ru)
+### Contacts
++ email: [oywayten+git@gmail.com](mailto:oywayten+git@gmail.com)
++ telegram: [@VitaliyJVM](https://t.me/VitaliyJVM/ "go to t.me/VitaliyJVM")
